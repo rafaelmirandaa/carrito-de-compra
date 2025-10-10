@@ -1,0 +1,42 @@
+html{
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+
+*,
+*:before,
+*::after{
+    box-sizing: inherit;
+}
+
+body{
+    font-size: 1.6rem;
+}
+
+img{
+    max-width: 100%;
+}
+
+@font-face {
+    font-family: 'fuente';
+    src: url(/assets/fonts/young-serif/YoungSerif-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'fuente2';
+    src: url(/assets/fonts/outfit/Outfit-VariableFont_wght.ttf);
+}
+
+/*.container{
+    max-width: 1200px;
+    width: 95%;
+    margin: 0 auto;
+}*/
+
+.attribution {
+   font-size: 0.688rem;
+   text-align: center;
+}
+.attribution a {
+     color: hsl(228, 45%, 44%); 
+}
