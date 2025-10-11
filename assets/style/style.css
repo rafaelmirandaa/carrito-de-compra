@@ -27,27 +27,29 @@ img{
     width: 100%;
     height: auto;
     margin: 0 auto;
-    padding: 20px 0 0 0;
-    background: white;
+    padding: 0 20px;
+    background-color: #FCF8F5;
 }
-.container{
+.dos-columnas{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+.contenedor{
   width: 100%;
-  max-width: 960px;
-  height: auto;
+  max-width: 1200px;
+  height: 130rem;
   margin: 0 auto;
   padding: 0 1rem;
   box-sizing: border-box;
-}
-.contenedor{
-    display: grid;
-    grid-column: 1fr;
-    gap: 1rem;
 }   
 .contenedor-principal{
     background-color: #FCF8F5;
     margin: 0 0 ;
+    width: 100%;
     padding: 0 0;
 }
+
 .encabezado {
     color:#271208;
     font-family: 'fuente2',sans-serif, Times, serif;
@@ -59,7 +61,6 @@ img{
     height: 30rem;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 15rem;
 }
 .card{
     width: 100%;
@@ -90,10 +91,9 @@ img{
     height: 6rem;
     max-width: 19rem;
     background: #ffffff;           /* Fondo blanco */
-    border: 1px solid #000000;     /* Borde negro */
+    border: 1px solid #DED4D4;     /* Borde negro */
     border-radius: 28px;           /* Bordes redondeados */
-    padding: 10px 20px;
-    color: #000000;                /* Texto negro */
+    padding: 10px 20px;              /* Texto negro */
     text-decoration: none;
     font-size: 16px;
     cursor: pointer;
@@ -186,29 +186,24 @@ img{
         width: 80%;
         margin: 0 auto;
         padding: 0;
-
     }
-    .contenedor{
+    .dos-columnas{
         display: grid;
         grid-template-columns:70% 30%;
-        column-gap:0rem ;
     }
     .carrito{
         width: 100%;
+        margin-top: 3rem;
         height: 30rem;
     }
     .carrito-contenido p{
         margin-bottom: 0.5rem;
     }
     .filas{
-    width: 100%;
-    height: auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    }
-    .tres-columnas{
+        width: 100%;
+        height: auto;
         display: grid;
-        column-gap: 20px;
+        grid-template-columns: 1fr 1fr 1fr;
     }
     .card{
         width: 90%;
@@ -226,7 +221,7 @@ img{
         min-width: 15rem;
         max-width: 15rem;
         background: #ffffff;           /* Fondo blanco */
-        border: 1px solid #000000;     /* Borde negro */
+        border: 1px solid #DED4D4;     /* Borde negro */
         border-radius: 28px;           /* Bordes redondeados */
         padding: 10px 20px;
         color: #000000;                /* Texto negro */
