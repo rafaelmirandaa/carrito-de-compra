@@ -79,6 +79,7 @@ img{
 }
 .card-contenido .button-add{
     position: relative;
+    transform: translateX(-30%);
     max-width: 200px;
     top: -20px;
     left: 100px;
@@ -223,6 +224,7 @@ img{
     }
     .card-contenido .button-add{
         position: relative;
+        transform: translateX(0%);
         width: 17rem;
         background: #ffffff;          
         border: 1px solid #DED4D4;   
