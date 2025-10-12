@@ -27,73 +27,66 @@ img{
     width: 100%;
     height: auto;
     margin: 0 auto;
-    padding: 0 20px;
-    background-color: #FCF8F5;
+    padding: 0 1rem;
 }
-.dos-columnas{
+.contenedor {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1rem;
-}
-.contenedor{
-  width: 100%;
-  max-width: 1200px;
-  height: 130rem;
-  margin: 0 auto;
-  padding: 0 1rem;
-  box-sizing: border-box;
+    width: 100%;
+    max-width: 1200px;
+    height: auto;
+    margin: 0 auto;
+    padding: 0 1rem;
+    box-sizing: border-box;
+    margin-bottom: 5rem;
 }   
 .contenedor-principal{
-    background-color: #FCF8F5;
-    margin: 0 0 ;
+    display: grid;
+    grid-template-columns: 1fr;
     width: 100%;
-    padding: 0 0;
-}
-
+    height: 100%;
+}    
 .encabezado {
     color:#271208;
     font-family: 'fuente2',sans-serif, Times, serif;
     font-size: 5rem;
     font-weight: bold;
-}
-.filas{
-    width: 100%;
-    height: 30rem;
-    display: grid;
-    grid-template-columns: 1fr;
+    padding: 0;
 }
 .card{
     width: 100%;
     text-align: left;
+    margin-bottom: 5rem;
 }
-.card-encabezado {
-  width: 100%;
-  height: 20rem;
-  background-size: cover;
-  background-position: center;
-  border-radius: 1rem;
+.card picture{
+    width: 100%;
 }
-.card-encabezado picture {
+.card-contenido picture {
   border-radius: 1rem;
   overflow: hidden;
   display: block;
 }  
+.card-contenido picture img{
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
 .card .info-card h4{
     font-size: 1rem;
     color:#A39690 ;
     font-family: 'fuente2',sans-serif;
 }
-.card-encabezado .button-add{
+.card-contenido .button-add{
     position: relative;
-    bottom: 2.5rem;
-    left: 10rem;
-    min-width: 17rem;
-    height: 6rem;
-    max-width: 19rem;
-    background: #ffffff;           /* Fondo blanco */
-    border: 1px solid #DED4D4;     /* Borde negro */
-    border-radius: 28px;           /* Bordes redondeados */
-    padding: 10px 20px;              /* Texto negro */
+    max-width: 200px;
+    top: -20px;
+    left: 100px;
+    height: 45px;
+    background: #ffffff;           
+    border: 1px solid #DED4D4;     
+    border-radius: 28px;          
+    padding: 10px 20px;              
     text-decoration: none;
     font-size: 16px;
     cursor: pointer;
@@ -102,8 +95,7 @@ img{
     align-items: center;   /* Centra verticalmente */
     justify-content: center; /* Centra horizontalmente */
     flex-shrink: 0;
-    white-space: nowrap;
-    gap: 2rem;  
+    white-space: nowrap;  
 }
 .button-add img{
     width: 4rem;
@@ -119,18 +111,24 @@ img{
 }
 .info-card{
     width:100%;
-    height: 2rem;
-    margin-top: 11rem;
+    height: 5rem;
+    margin-bottom: 4rem;
 }
 .info-card p{
     margin: 0;
     line-height: 2;
 }
 .info-card h2{
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: lighter;
     color:#88635C;
     line-height: 0%;
+}
+.info-card .sub-titulo{
+    color:#271208;
+    font-family:sans-serif;
+    font-size: 2rem;
+    font-weight: bold;
 }
 .info-card .precio{
     font-family: 'fuente',sans-serif,'Times New Roman', Times, serif;
@@ -140,12 +138,7 @@ img{
     margin: 0;
     line-height: 1;
 }
-.info-card .sub-titulo{
-    color:#271208;
-    font-family:sans-serif;
-    font-size: 2rem;
-    font-weight: lighter;
-}
+
 .carrito{
     width: 100%;
     height: 100%;
@@ -183,14 +176,21 @@ img{
 /*Tablet*/
 @media(min-width: 768px){
     .header{
-        width: 80%;
+        width: 100%;
         margin: 0 auto;
         padding: 0;
     }
     .dos-columnas{
         display: grid;
         grid-template-columns:70% 30%;
+        column-gap: 0.5rem;
     }
+    .contenedor-principal .titulo-platos{
+        width: 100%;
+        height: 10rem;
+    }
+    
+
     .carrito{
         width: 100%;
         margin-top: 3rem;
@@ -201,13 +201,28 @@ img{
     }
     .filas{
         width: 100%;
-        height: auto;
+        height: 20rem;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
     }
     .card{
         width: 90%;
+        height: 3rem;
         text-align: left;
+        background-color: white;
+    }
+    .card-encabezado{
+        position: relative;
+        width: 100%;
+        height: 20rem;
+        background-size: cover;
+        border-radius: 1rem;
+    }
+    .info-card{
+        display: block;
+        width: 100%;
+        height: 20rem;
+        margin-bottom: 20rem;
     }
     .card .info-card h4{
         font-size: 1rem;
