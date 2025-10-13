@@ -39,6 +39,10 @@ img{
     padding: 0 0.7rem;
     box-sizing: border-box;
 }   
+.card-template{
+    display: none;
+}
+
 .contenedor-principal{
     display: grid;
     grid-template-columns: 1fr;
@@ -185,8 +189,14 @@ img{
     }
     .dos-columnas{
         display: grid;
-        grid-template-columns:70% 30%;
-        column-gap: 0.5rem;
+        grid-template-columns:50% 50%;
+        column-gap:5rem;
+        background-color: red;
+    }
+    .filas {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;  
     }
     /*.contenedor-principal .titulo-platos{
         width: 100%;
