@@ -161,7 +161,10 @@ img{
     background-repeat: no-repeat;
     text-align: center;
 }
-.carrito-contenido p{
+.carrito-contenido-vacio{
+    display: none;
+}
+.carrito-contenido-vacio p{
     color: #88635C;
     margin-bottom: 1rem;
 }
@@ -195,7 +198,7 @@ img{
         margin-top: 3rem;
         height: 30rem;
     }
-    .carrito-contenido p{
+    .carrito-contenido-vacio p{
         margin-bottom: 0.5rem;
     }
     .filas{
