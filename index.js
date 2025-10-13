@@ -14,33 +14,44 @@ function iniciarApp(){
     }
 
     function obtenerPlato(productos){
-       const contenedor = document.querySelector('.tres-columnas');
+       const contenedor = document.querySelector('.filas');
+       const plantilla = document.querySelector('.card-template');
         
-       productos.forEach((plato, index )=>{
-        const id = index + 1;
-       
-        const card = document.createElement('div');
-        card.classList.add('card');
-        card.dataset.id = id;
-        card.innerHTML =`
-        <div class= "card-contenido">
-            <picture>
-                <source media="(min-width: 1024px)" srcset="${plato.image.desktop}">
-                <source media="(min-width: 768px)" srcset="${plato.image.tablet}">
-                <img src="${plato.image.mobile}" alt="${plato.name}">
-                <div class ="button-add" >
-            </picture>        
-                    <img src="/assets/images/icon-add-to-cart.svg" alt="">
-                    <a href="#" class="" data-id="1">Add to Cart</a>
-        </div>
-        <div class="info-card">
-                        <h2>${plato.category}</h2>
-                        <p class="sub-titulo">${plato.name}</p>
-                        <p class="precio"><span class="">$${plato.price}</span></p>
-        </div>    
-        `;
+    productos.forEach((plato) => {
+  const card = plantilla.cloneNode(true); // clona todo el HTML
+  card.classList.remove('card-template');
+
+  // Ahora buscamos dentro del clon
+  card.querySelector('.categoria').textContent = plato.category;
+  card.querySelector('.nombre').textContent = plato.name;
+  card.querySelector('.precio-span').textContent = `$${plato.price}`;
+  
+  // Actualizar imágenes
+  card.querySelector('source[media="(min-width: 1024px)"]').srcset = plato.image.desktop;
+  card.querySelector('source[media="(min-width: 768px)"]').srcset = plato.image.tablet;
+  card.querySelector('img').src = plato.image.mobile;
+  card.querySelector('img').alt = plato.name;
+
         contenedor.appendChild(card);
     });
-}    
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}    
 document.addEventListener('DOMContentLoaded', iniciarApp);
