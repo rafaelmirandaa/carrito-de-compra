@@ -160,7 +160,10 @@ img{
     background-repeat: no-repeat;
     text-align: center;
 }
-.carrito-contenido p{
+.carrito-vacio{
+    display: none;
+}
+.carrito-vacio p{
     color: #88635C;
     margin-bottom: 1rem;
 }

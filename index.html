@@ -13,11 +13,11 @@
 <body>
 <header id="header" class="header">
 <div class="contenedor dos-columnas">
-  <div class="contenedor-principal">
+  <div  class="contenedor-principal">
       <div>
             <h1 class="encabezado">Desserts</h1>
       </div>
-      <div class="contenedor">
+      <div id="lista-platos" class="contenedor">
           <div class="filas">
                   <div class="tres-columnas">
                     <div class="card producto">
@@ -27,10 +27,10 @@
                           <source class="img-tablet" media="(min-width: 768px)" srcset="">
                           <img class="img-mobile"=" alt="">
                         </picture>
-                        <div class="button-add">
+                        <button class="button-add agregar-carrito" data-id="1">
                           <img src="/assets/images/icon-add-to-cart.svg" alt="">
-                          <a href="#" class="" data-id="1">Add to Cart</a>
-                        </div>
+                          Add to Cart
+                        </button>
                       </div>
                       <div class="info-card">
                         <h2 class="category"></h2>
@@ -47,10 +47,10 @@
                           <source class="img-tablet" media="(min-width: 768px)" srcset="">
                           <img class="img-mobile"=" alt="">
                         </picture>
-                        <div class="button-add">
+                        <button class="button-add agregar-carrito" data-id="2">
                           <img src="/assets/images/icon-add-to-cart.svg" alt="">
-                          <a href="#" class="" data-id="2">Add to Cart</a>
-                      </div>
+                          Add to Cart
+                        </button>
                       </div>
                       <div class="info-card">
                         <h2 class="category"></h2>
@@ -67,10 +67,10 @@
                           <source class="img-tablet" media="(min-width: 768px)" srcset="">
                           <img class="img-mobile"=" alt="">
                         </picture>
-                        <div class="button-add">
+                        <button class="button-add agregar-carrito" data-id="3">
                           <img src="/assets/images/icon-add-to-cart.svg" alt="">
-                          <a href="#" class="" data-id="3">Add to Cart</a>
-                      </div>
+                          Add to Cart
+                        </button>
                       </div>
                       <div class="info-card">
                         <h2 class="category"></h2>
@@ -89,10 +89,10 @@
                           <source class="img-tablet" media="(min-width: 768px)" srcset="">
                           <img class="img-mobile"=" alt="">
                         </picture>
-                        <div class="button-add">
+                        <button class="button-add agregar-carrito" data-id="4">
                           <img src="/assets/images/icon-add-to-cart.svg" alt="">
-                          <a href="#" class="" data-id="1">Add to Cart</a>
-                        </div>
+                          Add to Cart
+                        </button>
                       </div>
                       <div class="info-card">
                         <h2 class="category"></h2>
@@ -109,10 +109,10 @@
                           <source class="img-tablet" media="(min-width: 768px)" srcset="">
                           <img class="img-mobile"=" alt="">
                         </picture>
-                        <div class="button-add">
+                        <button class="button-add agregar-carrito" data-id="5">
                           <img src="/assets/images/icon-add-to-cart.svg" alt="">
-                          <a href="#" class="" data-id="2">Add to Cart</a>
-                      </div>
+                          Add to Cart
+                        </button>
                       </div>
                       <div class="info-card">
                         <h2 class="category"></h2>
@@ -129,10 +129,10 @@
                           <source class="img-tablet" media="(min-width: 768px)" srcset="">
                           <img class="img-mobile"=" alt="">
                         </picture>
-                        <div class="button-add">
+                        <button class="button-add agregar-carrito" data-id="6">
                           <img src="/assets/images/icon-add-to-cart.svg" alt="">
-                          <a href="#" class="" data-id="3">Add to Cart</a>
-                      </div>
+                          Add to Cart
+                        </button>
                       </div>
                       <div class="info-card">
                         <h2 class="category"></h2>
@@ -151,10 +151,10 @@
                           <source class="img-tablet" media="(min-width: 768px)" srcset="">
                           <img class="img-mobile"=" alt="">
                         </picture>
-                        <div class="button-add">
+                        <button class="button-add agregar-carrito" data-id="7">
                           <img src="/assets/images/icon-add-to-cart.svg" alt="">
-                          <a href="#" class="" data-id="1">Add to Cart</a>
-                        </div>
+                          Add to Cart
+                        </button>
                       </div>
                       <div class="info-card">
                         <h2 class="category"></h2>
@@ -171,10 +171,10 @@
                           <source class="img-tablet" media="(min-width: 768px)" srcset="">
                           <img class="img-mobile"=" alt="">
                         </picture>
-                        <div class="button-add">
+                        <button class="button-add agregar-carrito" data-id="8">
                           <img src="/assets/images/icon-add-to-cart.svg" alt="">
-                          <a href="#" class="" data-id="2">Add to Cart</a>
-                      </div>
+                          Add to Cart
+                        </button>
                       </div>
                       <div class="info-card">
                         <h2 class="category"></h2>
@@ -191,10 +191,10 @@
                           <source class="img-tablet" media="(min-width: 768px)" srcset="">
                           <img class="img-mobile"=" alt="">
                         </picture>
-                        <div class="button-add">
+                        <button class="button-add agregar-carrito" data-id="9">
                           <img src="/assets/images/icon-add-to-cart.svg" alt="">
-                          <a href="#" class="" data-id="3">Add to Cart</a>
-                      </div>
+                          Add to Cart
+                        </button>
                       </div>
                       <div class="info-card">
                         <h2 class="category"></h2>
@@ -210,7 +210,18 @@
       <div class="carrito-titulo">
           <h2>You Cart (0<span id="cantidad-platos"></span>)</h2>
       </div>
-      <div class="carrito-contenido">
+      <div id="carrito" class="carrito-contenedor">
+           <div id="agregar-carrito" class="agregar-carrito">
+              <p class="name">Classic Tiramisu</p>
+              <p class="cantidad">1x</p>
+              <p class="valor-unitario">$5.50</p>
+              <p class="valor-total">$</p>
+              <a href="">
+                <img src="/assets/images/icon-remove-item.svg" alt="X">
+              </a>
+            </div>
+      </div>
+      <div class="carrito-vacio">
         <div class="imagen-carrito"><img src="/assets/images/illustration-empty-cart.svg" alt="Carrito Vacio"></div>
         <p>You added items will appear here</p>
       </div>

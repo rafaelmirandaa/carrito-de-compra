@@ -1,9 +1,12 @@
- let productos = [];
+let productos = [];
+const carrito = document.querySelector('#carrito');
+const listaplatos = document.querySelector('#lista-platos');
+
 
 function iniciarApp(){
     obtenerDatos();
 }
-    function obtenerDatos(){
+     function obtenerDatos(){
         const rutas = "/data.json";
         fetch(rutas)
             .then((respuesta)=> respuesta.json())
@@ -34,5 +37,43 @@ function iniciarApp(){
             card.querySelector('.name').textContent = producto.name;
             card.querySelector('.price').textContent = `$${producto.price}`;
     });
-}        
+    }        
+    cargarEventListeners();
+    function cargarEventListeners(){
+        //cuando agregas un plato prsionando Add to Cart
+        listaplatos.addEventListener('click', agregarPlato);
+       
+        
+    }
+
+//Funciones
+function agregarPlato(e){ //colocamos e para que con el e.target ver donde estamosdando click
+    e.preventDefault();
+    if(e.target.classList.contains('agregar-carrito')){
+        const platosSeleccionado = e.target.parentElement.parentElement;
+
+        leerplatos(platosSeleccionado);
+    }
+    
+}
+
+//lee el contenido de HTML
+function leerplatos(plato){
+   //console.log(plato);
+
+    //crear objeto con el contenido del plato 
+    const infoPlato = {
+        imagen : plato.querySelector('img').src,
+        titulo : plato.querySelector('.name').textContent,
+        precio : plato.querySelector('.precio .price').textContent
+
+    }
+
+    console.log(infoPlato)
+
+}
+
+
+
+
 document.addEventListener('DOMContentLoaded', iniciarApp);
