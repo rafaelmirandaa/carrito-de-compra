@@ -27,7 +27,7 @@ img{
     width: 100%;
     height: auto;
     margin: 0 auto;
-    padding: 0 0;
+    padding: 0 1rem;
 }
 .contenedor {
     display: grid;
@@ -36,13 +36,10 @@ img{
     max-width: 1200px;
     height: auto;
     margin: 0 auto;
-    padding: 0 0.7rem;
+    padding: 0 1rem;
     box-sizing: border-box;
+    margin-bottom: 5rem;
 }   
-.card-template{
-    display: none;
-}
-
 .contenedor-principal{
     display: grid;
     grid-template-columns: 1fr;
@@ -59,7 +56,7 @@ img{
 .card{
     width: 100%;
     text-align: left;
-    margin-bottom: 6rem;
+    margin-bottom: 5rem;
 }
 .card picture{
     width: 100%;
@@ -82,13 +79,12 @@ img{
 }
 .card-contenido .button-add{
     position: relative;
-    transform: translateX(-10%);
     max-width: 200px;
     top: -20px;
     left: 100px;
     height: 45px;
     background: #ffffff;           
-    border: 1.5px solid #DED4D4;     
+    border: 1px solid #DED4D4;     
     border-radius: 28px;          
     padding: 10px 20px;              
     text-decoration: none;
@@ -102,7 +98,7 @@ img{
     white-space: nowrap;  
 }
 .button-add img{
-    width: 3rem;
+    width: 4rem;
     height: 3rem;
 }
 .button-add a {
@@ -164,10 +160,7 @@ img{
     background-repeat: no-repeat;
     text-align: center;
 }
-.carrito-contenido-vacio{
-    display: none;
-}
-.carrito-contenido-vacio p{
+.carrito-contenido p{
     color: #88635C;
     margin-bottom: 1rem;
 }
@@ -189,14 +182,8 @@ img{
     }
     .dos-columnas{
         display: grid;
-        grid-template-columns:50% 50%;
-        column-gap:5rem;
-        background-color: red;
-    }
-    .filas {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;  
+        grid-template-columns:70% 30%;
+        column-gap: 0.5rem;
     }
     /*.contenedor-principal .titulo-platos{
         width: 100%;
@@ -207,14 +194,15 @@ img{
         margin-top: 3rem;
         height: 30rem;
     }
-    .carrito-contenido-vacio p{
+    .carrito-contenido p{
         margin-bottom: 0.5rem;
     }
-    .tres-columnas {
+    .filas{
         display: grid;
-        grid-template-columns: repeat(3, 1fr); 
-        gap: 20px; 
-}
+        grid-template-columns: 1fr 1fr 1fr;
+        width: 100%;
+        height:40rem;
+    }
     .card{
         width: 95%;
         height: 35rem;
@@ -227,7 +215,7 @@ img{
         background-size: cover;
         border-radius: 1rem;
     }
-    .info-card .categoria{
+    .info-card h2{
         font-size: 2rem;
     }
     .info-card .sub-titulo{
@@ -235,7 +223,6 @@ img{
     }
     .card-contenido .button-add{
         position: relative;
-        transform: translateX(0%);
         width: 17rem;
         background: #ffffff;          
         border: 1px solid #DED4D4;   
