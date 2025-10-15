@@ -143,16 +143,31 @@ img{
     width: 100%;
     height: 100%;
     padding: 1rem;
-    text-align: center;
+    text-align: left;
     background-color: #ffff;
+    font-family: 'fuente', sans-serif;
 }
 .carrito h2{
     color: #CF370D;
     font-family: 'fuente',sans-serif;
     font-size: 2rem;
-    font-weight: 800;
+    font-weight: bold;
     text-align: left;
 }
+.item-carrito .nombre-plato{
+    font-family: 'fuente2',sans-serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+
+}
+.item-carrito .cantidad-plato{
+    color: #CF370D;
+}
+.item-carrito .borrar-curso{
+    border-radius: 50%;
+}
+
+
 .imagen-carrito img{
     width: 50%;
     height: 50%;

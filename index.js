@@ -1,6 +1,8 @@
 let productos = [];
 const carrito = document.querySelector('#carrito');
+const carrito_contenedor = document.querySelector('#carrito');
 const listaplatos = document.querySelector('#lista-platos');
+let articulosCarrito = [];
 
 
 function iniciarApp(){
@@ -65,13 +67,49 @@ function leerplatos(plato){
     const infoPlato = {
         imagen : plato.querySelector('img').src,
         titulo : plato.querySelector('.name').textContent,
-        precio : plato.querySelector('.precio .price').textContent
-
+        precio : parseFloat(plato.querySelector('.precio .price').textContent.replace('$', '')),
+        id : plato.querySelector('button').getAttribute('data-id'),
+        cantidad : 1
     }
 
-    console.log(infoPlato)
+    //console.log(infoPlato)
+    //Agrega elemeentos del carrito
+    articulosCarrito = [...articulosCarrito, infoPlato];
+
+   console.log(articulosCarrito);
+   carritoHTML();
+}
+
+//Muestra el Carrito de compras en el HTML
+function carritoHTML(){
+    //limpia el contenedor antes de llenarlo
+    carrito_contenedor.innerHTML = '';
+
+    articulosCarrito.forEach(carrito =>{
+        const fila = document.createElement('DIV');
+        fila.classList.add('item-carrito')
+
+        fila.innerHTML = `
+        <p class="nombre-plato">${carrito.titulo}</p>
+        <p class="cantidad-plato">${carrito.cantidad}x</p>
+        <p>$${carrito.precio.toFixed(2)}</p>
+        <p>$${(carrito.cantidad * carrito.precio).toFixed(2)}</p>
+        <a href="#" class="borrar-curso" data-id="${carrito.id}">
+            <img src="/assets/images/icon-remove-item.svg" alt="X">
+        </a>
+        <hr>
+        
+        `;
+
+        //Agregar el HTML del carrito en el DIV
+        carrito_contenedor.appendChild(fila);
+    })
+
+
 
 }
+
+
 
 
 
