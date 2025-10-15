@@ -1,14 +1,17 @@
 let productos = [];
 const carrito = document.querySelector('#carrito');
-const carrito_contenedor = document.querySelector('#carrito');
+const carrito_contenedor = document.querySelector('#carrito-contenedor');
 const listaplatos = document.querySelector('#lista-platos');
 let articulosCarrito = [];
 
 
 function iniciarApp(){
+    carritoHTML();
     obtenerDatos();
+
+    
 }
-     function obtenerDatos(){
+function obtenerDatos(){
         const rutas = "/data.json";
         fetch(rutas)
             .then((respuesta)=> respuesta.json())
@@ -19,9 +22,9 @@ function iniciarApp(){
             .catch((error) => {
                 console.error("No me puedo conectar");
             });
-    }
+}
 
-    function llenarCards(){
+function llenarCards(){
         const cards = document.querySelectorAll('.producto'); // tomamos el producto correspondiente
             
             cards.forEach((card, index) => {
@@ -39,14 +42,17 @@ function iniciarApp(){
             card.querySelector('.name').textContent = producto.name;
             card.querySelector('.price').textContent = `$${producto.price}`;
     });
-    }        
-    cargarEventListeners();
-    function cargarEventListeners(){
+}        
+cargarEventListeners();
+function cargarEventListeners(){
         //cuando agregas un plato prsionando Add to Cart
         listaplatos.addEventListener('click', agregarPlato);
+
+        //Eliminar plato del carrito 
+        carrito.addEventListener('click', eliminarPlato);
        
         
-    }
+}
 
 //Funciones
 function agregarPlato(e){ //colocamos e para que con el e.target ver donde estamosdando click
@@ -58,6 +64,37 @@ function agregarPlato(e){ //colocamos e para que con el e.target ver donde estam
     }
     
 }
+
+//elimina platos
+function eliminarPlato(e){
+    // Revisar si se hizo click en el botón o el icono de borrar
+    const boton = e.target.closest('.borrar-plato');
+    if (boton) {
+        const platoid = boton.getAttribute('data-id');
+        // Buscar el plato en el arreglo
+        const plato = articulosCarrito.find(p => p.id === platoid);
+        if (plato) {
+            // Restar 1 a la cantidad
+            plato.cantidad -= 1;
+            // Si la cantidad llega a 0, eliminarlo del arreglo
+            if (plato.cantidad === 0) {
+                articulosCarrito = articulosCarrito.filter(p => p.id !== platoid);
+            }
+
+            // Actualizar carrito y contador
+            carritoHTML();
+        }
+    }
+    /*if(e.target.classList.contains('borrar-plato')){
+        const platoid = (e.target.getAttribute('data-id'));
+
+        //Eliminardelarreglo
+        articulosCarrito = articulosCarrito.filter( plato => plato.id !== platoid );
+
+        carritoHTML();
+    }*/
+}
+
 
 //lee el contenido de HTML
 function leerplatos(plato){
@@ -72,44 +109,87 @@ function leerplatos(plato){
         cantidad : 1
     }
 
-    //console.log(infoPlato)
-    //Agrega elemeentos del carrito
-    articulosCarrito = [...articulosCarrito, infoPlato];
-
-   console.log(articulosCarrito);
+    //Revisar si el elmento ya existe
+    const existe = articulosCarrito.some( plato => plato.id === infoPlato.id);
+    if(existe){
+    
+        //actualizamos la cantidad
+        const platos = articulosCarrito.map(plato =>{
+            if(plato.id === infoPlato.id){
+                plato.cantidad++;
+                return plato;
+            }else{
+                return plato;
+            }
+        });
+        articulosCarrito=[...platos];
+    }else{
+        articulosCarrito = [...articulosCarrito, infoPlato];
+    }
    carritoHTML();
 }
-
 //Muestra el Carrito de compras en el HTML
 function carritoHTML(){
-    //limpia el contenedor antes de llenarlo
-    carrito_contenedor.innerHTML = '';
+        //limpia el contenedor antes de llenarlo
+        carrito_contenedor.innerHTML = '';
 
-    articulosCarrito.forEach(carrito =>{
-        const fila = document.createElement('DIV');
-        fila.classList.add('item-carrito')
+        if(articulosCarrito.length ===0)
+         {
+    
+            const carrito_vacio = document.createElement('DIV');
+            carrito_vacio.classList.add('carrito-vacio')
 
-        fila.innerHTML = `
-        <p class="nombre-plato">${carrito.titulo}</p>
-        <p class="cantidad-plato">${carrito.cantidad}x</p>
-        <p>$${carrito.precio.toFixed(2)}</p>
-        <p>$${(carrito.cantidad * carrito.precio).toFixed(2)}</p>
-        <a href="#" class="borrar-curso" data-id="${carrito.id}">
-            <img src="/assets/images/icon-remove-item.svg" alt="X">
-        </a>
-        <hr>
-        
-        `;
+            carrito_vacio.innerHTML =`
+                <div class="imagen-carrito">
+                    <img src="/assets/images/illustration-empty-cart.svg" alt="Carrito Vacio">
+                </div>
+                <div class="carrito-leyenda">
+                <p>You added items will appear here</p>
+                </div>
+                
 
-        //Agregar el HTML del carrito en el DIV
-        carrito_contenedor.appendChild(fila);
-    })
+            `;//para comenzar en 0 el contador del carrito
+            carrito_contenedor.appendChild(carrito_vacio);
+            const contador = document.querySelector('#cantidad-platos');
+            if(contador){
+                contador.textContent = 0;
+            }
+        }else{
+            articulosCarrito.forEach(carrito =>{
+            const fila = document.createElement('DIV');
+            fila.classList.add('item-carrito')
 
+            const precioNumero = parseFloat(carrito.precio);
 
+            fila.innerHTML = `
+            <p class="nombre-plato">${carrito.titulo}</p>
+            <div class="fila-detalle">
+                <p class="cantidad-plato">${carrito.cantidad}x</p>
+                <p class="valor-unitario">@$${carrito.precio.toFixed(2)}</p>
+                <p class="valor-total">$${(carrito.cantidad * precioNumero).toFixed(2)}</p>
+                <a href="#"  class="borrar-plato" data-id="${carrito.id}">
+                    <img  src="/assets/images/icon-remove-item.svg" alt="Borrar Plato">
+                </a>
+            </div>    
+            `;
+            //Agregar el HTML del carrito en el DIV
+            carrito_contenedor.appendChild(fila);
+            actualizarContadorCarrito();
+        }
+    )}
+};
+function actualizarContadorCarrito() {
+    // Sumar todas las cantidades del carrito
+    const totalPlatos = articulosCarrito.reduce((acumulador, plato) => {
+        return acumulador + plato.cantidad;
+    }, 0);
 
+    // Actualizar el elemento del encabezado
+    const contador = document.querySelector('#cantidad-platos');
+    if (contador) {
+        contador.textContent = totalPlatos;
+    }
 }
-
-
 
 
 
