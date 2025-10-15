@@ -150,7 +150,7 @@ img{
 .carrito h2{
     color: #CF370D;
     font-family: 'fuente',sans-serif;
-    font-size: 2rem;
+    font-size: 3rem;
     font-weight: bold;
     text-align: left;
 }
@@ -162,9 +162,17 @@ img{
 }
 .item-carrito .cantidad-plato{
     color: #CF370D;
+    font-weight: bold;
 }
 .item-carrito .borrar-curso{
-    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;          /* tamaño del círculo */
+    height: 15px;
+    border: 1px solid #B6B0B0;
+    border-radius: 50%;   /* esto hace el círculo */
+    transition: background 0.3s ease;
 }
 
 
