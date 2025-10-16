@@ -141,7 +141,7 @@ img{
 
 .carrito{
     width: 100%;
-    height: 100%;
+    height: auto;
     padding: 1rem;
     text-align: left;
     background-color: #ffff;
@@ -213,6 +213,11 @@ img{
   background-size: cover;
     background-repeat: no-repeat; /* para mantener proporción */
 }
+#cantidad-platos{
+    color: #CF370D;
+    font-weight: bold;
+}
+
 
 #carrito-contenedor{
     display: block;
@@ -250,7 +255,7 @@ img{
     .carrito{
         width: 100%;
         margin-top: 3rem;
-        height: 30rem;
+        height: auto;
     }
     .carrito-contenido p{
         margin-bottom: 0.5rem;
