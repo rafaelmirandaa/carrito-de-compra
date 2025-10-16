@@ -57,10 +57,45 @@ img{
     width: 100%;
     text-align: left;
     margin-bottom: 5rem;
+    border: 2px solid transparent; /* borde inicial invisible */
+    border-radius: 10px;
+    transition: border-color 0.2s ease-in-out;
 }
 .card picture{
     width: 100%;
 }
+.card:focus {
+  border-color: #f39c12;
+  outline-offset: 5px;
+  border-radius: 10px;
+  transition: outline 0.2s;
+}
+
+.card picture img {
+  width: 100%;
+  border-radius: 10px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.card picture img:active {
+    border: 3px solid #CF370D;
+    cursor: pointer;   /* agranda ligeramente la imagen */
+  filter: brightness(0.9); /* oscurece un poco */
+}
+.button-add.active {
+  background-color: orange;
+  color: white;
+  border: none;
+}
+
+.button-add span {
+  cursor: pointer;
+  padding: 0 5px;
+  font-weight: bold;
+}
+
+
+
 .card-contenido picture {
   border-radius: 1rem;
   overflow: hidden;
@@ -219,17 +254,30 @@ img{
 #carrito-contenedor{
     display: block;
 }
+.carrito-total{
+  display: flex;
+  justify-content: space-between; /* separa los <p> */
+  align-items: center; /* centra verticalmente */
+  padding: 10px;
+  border-top: 1px solid #ccc;
+}
+
+.carrito-total .orden-total{
+    color: black;
+    font-family: 'fuente2',;
+}
+
+.carrito-total .cantidad-total{
+    font-weight: bold;
+    font-family: 'fuente2',;
+    font-size: 2.5rem;
+}
+
 .carrito-mensaje p{
     text-align: center;
     color: #88635C;
     margin-bottom: 1rem;
 }
-
-
-
-
-
-
 
 .attribution {
    font-size: 0.688rem;

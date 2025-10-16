@@ -1,198 +1,207 @@
 let productos = [];
+let articulosCarrito = [];
 const carrito = document.querySelector('#carrito');
 const carrito_contenedor = document.querySelector('#carrito-contenedor');
 const listaplatos = document.querySelector('#lista-platos');
-let articulosCarrito = [];
 
-
+// Iniciar app
 function iniciarApp(){
     carritoHTML();
     obtenerDatos();
 }
+
+// Obtener datos de JSON
 function obtenerDatos(){
-        const rutas = "/data.json";
-        fetch(rutas)
-            .then((respuesta)=> respuesta.json())
-            .then((datos) =>{
-                productos = datos;
-                llenarCards();
-            })
-            .catch((error) => {
-                console.error("No me puedo conectar");
-            });
+    fetch("/data.json")
+        .then(respuesta => respuesta.json())
+        .then(datos => {
+            productos = datos;
+            llenarCards();
+        })
+        .catch(error => console.error("No me puedo conectar"));
 }
 
+// Llenar los cards con los datos
 function llenarCards(){
-        const cards = document.querySelectorAll('.producto'); // tomamos el producto correspondiente
-            
-            cards.forEach((card, index) => {
-                const producto = productos[index]; // tomamos el producto correspondiente
-                 if (!producto) return;
+    const cards = document.querySelectorAll('.producto');
+    cards.forEach((card, index) => {
+        const producto = productos[index];
+        if(!producto) return;
 
-            // Imágenes
-            card.querySelector('.img-desktop').srcset = producto.image.desktop;
-            card.querySelector('.img-tablet').srcset = producto.image.tablet;
-            card.querySelector('.img-mobile').src = producto.image.mobile;
-            card.querySelector('.img-mobile').alt = producto.name;
+        // Imágenes
+        card.querySelector('.img-desktop').srcset = producto.image.desktop;
+        card.querySelector('.img-tablet').srcset = producto.image.tablet;
+        card.querySelector('.img-mobile').src = producto.image.mobile;
+        card.querySelector('.img-mobile').alt = producto.name;
 
-            // Textos
-            card.querySelector('.category').textContent = producto.category;
-            card.querySelector('.name').textContent = producto.name;
-            card.querySelector('.price').textContent = `$${producto.price}`;
+        // Textos
+        card.querySelector('.category').textContent = producto.category;
+        card.querySelector('.name').textContent = producto.name;
+        card.querySelector('.price').textContent = `$${producto.price}`;
     });
-}        
-cargarEventListeners();
-function cargarEventListeners(){
-        //cuando agregas un plato prsionando Add to Cart
-        listaplatos.addEventListener('click', agregarPlato);
-
-        //Eliminar plato del carrito 
-        carrito.addEventListener('click', eliminarPlato);
 }
 
-//Funciones
-function agregarPlato(e){ //colocamos e para que con el e.target ver donde estamosdando click
+// Leer info del plato
+function leerplatos(card){
+    const infoPlato = {
+        imagen : card.querySelector('img')?.src || '',
+        titulo : card.querySelector('.name')?.textContent || 'Plato',
+        precio : parseFloat(card.closest('.producto').querySelector('.price').textContent.replace('$','')) || 0,
+        id : parseInt(card.querySelector('button').dataset.id),
+        cantidad : 1
+    };
+    return infoPlato;
+}
+
+// Agregar plato al carrito y manejar contador
+function agregarPlato(e){
     e.preventDefault();
     if(e.target.classList.contains('agregar-carrito')){
-        const platosSeleccionado = e.target.parentElement.parentElement;
+        const card = e.target.closest('.card-contenido');
+        const boton = e.target;
+        const id = parseInt(boton.dataset.id);
 
-        leerplatos(platosSeleccionado);
-    }
-}
-//elimina platos
-function eliminarPlato(e){
-     e.preventDefault();
-    // Revisar si se hizo click en el botón o el icono de borrar
-    const boton = e.target.closest('.borrar-plato');
-    if (boton) {
-        const platoid = boton.getAttribute('data-id');
-        // Buscar el plato en el arreglo
-        const plato = articulosCarrito.find(p => p.id === platoid);
-        if (plato) {
-            // Restar 1 a la cantidad
-            plato.cantidad -= 1;
-            // Si la cantidad llega a 0, eliminarlo del arreglo
-            if (plato.cantidad === 0) {
-                articulosCarrito = articulosCarrito.filter(p => p.id !== platoid);
+        // Leer info del plato
+        const platoSeleccionado = leerplatos(card);
+        let item = articulosCarrito.find(p => p.id === id);
 
-            }
-            // Actualizar carrito y contador
+        if(!item){
+            articulosCarrito.push({...platoSeleccionado, cantidad: 1});
+            item = articulosCarrito.find(p => p.id === id);
+        }
+
+        // Cambiar el botón a contador
+        boton.classList.remove('agregar-carrito');
+        boton.innerHTML = `
+            <button class="btn-minus">-</button>
+            <span class="quantity">${item.cantidad}</span>
+            <button class="btn-plus">+</button>
+        `;
+        const quantitySpan = boton.querySelector('.quantity');
+
+        // Botón +
+        boton.querySelector('.btn-plus').onclick = () => {
+            item.cantidad++;
+            quantitySpan.textContent = item.cantidad;
             carritoHTML();
-            actualizarContadorCarrito(); // Actualiza la cantidad en el encabezado
-            cuentaTotal(); 
-        }
-    }
-}
-function cuentaTotal(){
-    const carritoTotalDiv = document.querySelector('.carrito-total');
-    if (!carritoTotalDiv) return;
+            actualizarContadorCarrito();
+            cuentaTotal();
+        };
 
-    if (articulosCarrito.length === 0) {
-        // Carrito vacío → ocultar div
-        carritoTotalDiv.style.display = 'none';
-    } else {
-        // Carrito con elementos → calcular total y mostrar div
-        const totalCarrito = articulosCarrito.reduce((acum, plato) => acum + (plato.precio * plato.cantidad), 0);
-        const totalElemento = document.querySelector('#total-carrito');
-        if (totalElemento) {
-            totalElemento.textContent = totalCarrito.toFixed(2);
-        }
-        carritoTotalDiv.style.display = 'block';
-    }
-}
-//lee el contenido de HTML
-function leerplatos(plato){
-   //console.log(plato);
-
-    //crear objeto con el contenido del plato 
-    const infoPlato = {
-        imagen : plato.querySelector('img').src,
-        titulo : plato.querySelector('.name').textContent,
-        precio : parseFloat(plato.querySelector('.precio .price').textContent.replace('$', '')),
-        id : plato.querySelector('button').getAttribute('data-id'),
-        cantidad : 1
-    }
-
-    //Revisar si el elmento ya existe
-    const existe = articulosCarrito.some( plato => plato.id === infoPlato.id);
-    if(existe){
-    
-        //actualizamos la cantidad
-        const platos = articulosCarrito.map(plato =>{
-            if(plato.id === infoPlato.id){
-                plato.cantidad++;
-                return plato;
-            }else{
-                return plato;
+        // Botón -
+        boton.querySelector('.btn-minus').onclick = () => {
+            item.cantidad--;
+            if(item.cantidad <= 0){
+                articulosCarrito = articulosCarrito.filter(p => p.id !== id);
+                boton.innerHTML = `<img src="/assets/images/icon-add-to-cart.svg" alt=""> Add to Cart`;
+                boton.classList.add('agregar-carrito');
+            } else {
+                quantitySpan.textContent = item.cantidad;
             }
-        });
-        articulosCarrito=[...platos];
-    }else{
-        articulosCarrito = [...articulosCarrito, infoPlato];
+            carritoHTML();
+            actualizarContadorCarrito();
+            cuentaTotal();
+        };
+
+        // Actualizar carrito y total al agregar
+        carritoHTML();
+        actualizarContadorCarrito();
+        cuentaTotal();
     }
-   carritoHTML();
 }
-//Muestra el Carrito de compras en el HTML
-function carritoHTML(){
-        //limpia el contenedor antes de llenarlo
-        carrito_contenedor.innerHTML = '';
 
-        if(articulosCarrito.length ===0)
-         {
-    
-            const carrito_vacio = document.createElement('DIV');
-            carrito_vacio.classList.add('carrito-vacio')
-
-            carrito_vacio.innerHTML =`
-                <div class="imagen-carrito">
-                    <img src="/assets/images/illustration-empty-cart.svg" alt="Carrito Vacio">
-                </div>
-                <div class="carrito-mensaje">
-                <p>You added items will appear here</p>
-                </div>
-                
-
-            `;//para comenzar en 0 el contador del carrito
-            carrito_contenedor.appendChild(carrito_vacio);
-            const contador = document.querySelector('#cantidad-platos');
-            if(contador){
-                contador.textContent = 0;
+// Eliminar plato desde carrito
+function eliminarPlato(e){
+    e.preventDefault();
+    const boton = e.target.closest('.borrar-plato');
+    if(boton){
+        const platoid = parseInt(boton.dataset.id);
+        const plato = articulosCarrito.find(p => p.id === platoid);
+        if(plato){
+            plato.cantidad -= 1;
+            if(plato.cantidad <= 0){
+                articulosCarrito = articulosCarrito.filter(p => p.id !== platoid);
+                // Restaurar botón en card si existe
+                const cardBoton = document.querySelector(`.producto [data-id="${platoid}"]`);
+                if(cardBoton && !cardBoton.classList.contains('agregar-carrito')){
+                    cardBoton.innerHTML = `<img src="/assets/images/icon-add-to-cart.svg" alt=""> Add to Cart`;
+                    cardBoton.classList.add('agregar-carrito');
+                }
             }
-        }else{
-            articulosCarrito.forEach(carrito =>{
-            const fila = document.createElement('DIV');
-            fila.classList.add('item-carrito')
-
-            const precioNumero = parseFloat(carrito.precio);
-
-            fila.innerHTML = `
-            <p class="nombre-plato">${carrito.titulo}</p>
-            <div class="fila-detalle">
-                <p class="cantidad-plato">${carrito.cantidad}x</p>
-                <p class="valor-unitario">@$${carrito.precio.toFixed(2)}</p>
-                <p class="valor-total">$${(carrito.cantidad * precioNumero).toFixed(2)}</p>
-                <a href="#"  class="borrar-plato" data-id="${carrito.id}">
-                    <img  src="/assets/images/icon-remove-item.svg" alt="Borrar Plato">
-                </a>
-            </div>  
-            `;
-            //Agregar el HTML del carrito en el DIV
-            carrito_contenedor.appendChild(fila);
+            carritoHTML();
             actualizarContadorCarrito();
             cuentaTotal();
         }
-    )}
-};
-function actualizarContadorCarrito() {
-    // Sumar todas las cantidades del carrito
-    const totalPlatos = articulosCarrito.reduce((acumulador, plato) => {
-        return acumulador + plato.cantidad;
-    }, 0);
-
-    // Actualizar el elemento del encabezado
-    const contador = document.querySelector('#cantidad-platos');
-    if (contador) {
-        contador.textContent = totalPlatos;
     }
 }
+
+// Calcular total del carrito
+function cuentaTotal(){
+    const carritoTotalDiv = document.querySelector('.carrito-total');
+    const totalElemento = document.querySelector('#total-carrito');
+    if (!carritoTotalDiv || !totalElemento) return;
+
+    if (articulosCarrito.length === 0) {
+        carritoTotalDiv.style.display = 'none';
+        totalElemento.textContent = '0.00';
+    } else {
+        const totalCarrito = articulosCarrito.reduce((acum, plato) => acum + (plato.precio * plato.cantidad), 0);
+        totalElemento.textContent = totalCarrito.toFixed(2);
+        carritoTotalDiv.style.display = 'flex';
+    }
+}
+
+// Actualizar contador del header
+function actualizarContadorCarrito() {
+    const totalPlatos = articulosCarrito.reduce((acumulador, plato) => acumulador + plato.cantidad, 0);
+    const contador = document.querySelector('#cantidad-platos');
+    if (contador) contador.textContent = totalPlatos;
+}
+
+// Mostrar el carrito en HTML
+function carritoHTML(){
+    carrito_contenedor.innerHTML = '';
+
+    if(articulosCarrito.length === 0){
+        const carrito_vacio = document.createElement('DIV');
+        carrito_vacio.classList.add('carrito-vacio');
+        carrito_vacio.innerHTML = `
+            <div class="imagen-carrito">
+                <img src="/assets/images/illustration-empty-cart.svg" alt="Carrito Vacio">
+            </div>
+            <div class="carrito-mensaje">
+                <p>You added items will appear here</p>
+            </div>
+        `;
+        carrito_contenedor.appendChild(carrito_vacio);
+        const contador = document.querySelector('#cantidad-platos');
+        if(contador) contador.textContent = 0;
+    } else {
+        articulosCarrito.forEach(plato => {
+            const fila = document.createElement('DIV');
+            fila.classList.add('item-carrito');
+            fila.innerHTML = `
+                <p class="nombre-plato">${plato.titulo}</p>
+                <div class="fila-detalle">
+                    <p class="cantidad-plato">${plato.cantidad}x</p>
+                    <p class="valor-unitario">@$${plato.precio.toFixed(2)}</p>
+                    <p class="valor-total">$${(plato.cantidad * plato.precio).toFixed(2)}</p>
+                    <a href="#" class="borrar-plato" data-id="${plato.id}">
+                        <img src="/assets/images/icon-remove-item.svg" alt="Borrar Plato">
+                    </a>
+                </div>  
+            `;
+            carrito_contenedor.appendChild(fila);
+        });
+    }
+}
+
+// Escuchar eventos
+function cargarEventListeners(){
+    listaplatos.addEventListener('click', agregarPlato);
+    carrito.addEventListener('click', eliminarPlato);
+}
+
+// Iniciar app y listeners
 document.addEventListener('DOMContentLoaded', iniciarApp);
+cargarEventListeners();
