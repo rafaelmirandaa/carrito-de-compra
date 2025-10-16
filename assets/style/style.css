@@ -138,7 +138,6 @@ img{
     margin: 0;
     line-height: 1;
 }
-
 .carrito{
     width: 100%;
     height: auto;
@@ -217,16 +216,20 @@ img{
     color: #CF370D;
     font-weight: bold;
 }
-
-
 #carrito-contenedor{
     display: block;
 }
-.carrito-leyenda p{
+.carrito-mensaje p{
     text-align: center;
     color: #88635C;
     margin-bottom: 1rem;
 }
+
+
+
+
+
+
 
 .attribution {
    font-size: 0.688rem;

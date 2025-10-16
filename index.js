@@ -8,8 +8,6 @@ let articulosCarrito = [];
 function iniciarApp(){
     carritoHTML();
     obtenerDatos();
-
-    
 }
 function obtenerDatos(){
         const rutas = "/data.json";
@@ -50,8 +48,6 @@ function cargarEventListeners(){
 
         //Eliminar plato del carrito 
         carrito.addEventListener('click', eliminarPlato);
-       
-        
 }
 
 //Funciones
@@ -62,11 +58,10 @@ function agregarPlato(e){ //colocamos e para que con el e.target ver donde estam
 
         leerplatos(platosSeleccionado);
     }
-    
 }
-
 //elimina platos
 function eliminarPlato(e){
+     e.preventDefault();
     // Revisar si se hizo click en el botón o el icono de borrar
     const boton = e.target.closest('.borrar-plato');
     if (boton) {
@@ -79,23 +74,32 @@ function eliminarPlato(e){
             // Si la cantidad llega a 0, eliminarlo del arreglo
             if (plato.cantidad === 0) {
                 articulosCarrito = articulosCarrito.filter(p => p.id !== platoid);
-            }
 
+            }
             // Actualizar carrito y contador
             carritoHTML();
+            actualizarContadorCarrito(); // Actualiza la cantidad en el encabezado
+            cuentaTotal(); 
         }
     }
-    /*if(e.target.classList.contains('borrar-plato')){
-        const platoid = (e.target.getAttribute('data-id'));
-
-        //Eliminardelarreglo
-        articulosCarrito = articulosCarrito.filter( plato => plato.id !== platoid );
-
-        carritoHTML();
-    }*/
 }
+function cuentaTotal(){
+    const carritoTotalDiv = document.querySelector('.carrito-total');
+    if (!carritoTotalDiv) return;
 
-
+    if (articulosCarrito.length === 0) {
+        // Carrito vacío → ocultar div
+        carritoTotalDiv.style.display = 'none';
+    } else {
+        // Carrito con elementos → calcular total y mostrar div
+        const totalCarrito = articulosCarrito.reduce((acum, plato) => acum + (plato.precio * plato.cantidad), 0);
+        const totalElemento = document.querySelector('#total-carrito');
+        if (totalElemento) {
+            totalElemento.textContent = totalCarrito.toFixed(2);
+        }
+        carritoTotalDiv.style.display = 'block';
+    }
+}
 //lee el contenido de HTML
 function leerplatos(plato){
    //console.log(plato);
@@ -143,7 +147,7 @@ function carritoHTML(){
                 <div class="imagen-carrito">
                     <img src="/assets/images/illustration-empty-cart.svg" alt="Carrito Vacio">
                 </div>
-                <div class="carrito-leyenda">
+                <div class="carrito-mensaje">
                 <p>You added items will appear here</p>
                 </div>
                 
@@ -170,11 +174,12 @@ function carritoHTML(){
                 <a href="#"  class="borrar-plato" data-id="${carrito.id}">
                     <img  src="/assets/images/icon-remove-item.svg" alt="Borrar Plato">
                 </a>
-            </div>    
+            </div>  
             `;
             //Agregar el HTML del carrito en el DIV
             carrito_contenedor.appendChild(fila);
             actualizarContadorCarrito();
+            cuentaTotal();
         }
     )}
 };
@@ -190,8 +195,4 @@ function actualizarContadorCarrito() {
         contador.textContent = totalPlatos;
     }
 }
-
-
-
-
 document.addEventListener('DOMContentLoaded', iniciarApp);
