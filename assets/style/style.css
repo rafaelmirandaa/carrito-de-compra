@@ -64,13 +64,6 @@ img{
 .card picture{
     width: 100%;
 }
-.card:focus {
-  border-color: #f39c12;
-  outline-offset: 5px;
-  border-radius: 10px;
-  transition: outline 0.2s;
-}
-
 .card picture img {
   width: 100%;
   border-radius: 10px;
@@ -116,7 +109,8 @@ img{
     border-radius: 28px;          
     padding: 10px 20px;              
     text-decoration: none;
-    font-size: 16px;
+    font-size: 1.5rem;
+    font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
@@ -132,8 +126,8 @@ img{
 .button-add a {
     text-decoration: none;
     font-family: 'fuente', sans-serif;
-    font-size: 1.7rem;
-    font-weight: 600;
+    font-size: 4.5rem;
+    font-weight: bold;
     color:#271208 ;
     white-space: nowrap;
 }
@@ -292,12 +286,18 @@ img{
     font-family: 'fuente2',;
     font-size: 2.5rem;
 }
-
 .carrito-mensaje p{
     text-align: center;
     color: #88635C;
     margin-bottom: 1rem;
 }
+.carrito-mensaje{
+    display: none;
+}
+.carrito-mensaje span{
+    font-weight: bold;
+}
+
 
 .attribution {
    font-size: 0.688rem;
@@ -399,4 +399,6 @@ img{
         color:#271208 ;
         white-space: nowrap;
     }
+
+
 }

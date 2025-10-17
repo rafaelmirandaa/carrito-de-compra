@@ -9,7 +9,6 @@ function iniciarApp(){
     carritoHTML();
     obtenerDatos();
 }
-
 // Obtener datos de JSON
 function obtenerDatos(){
     fetch("/data.json")
@@ -20,7 +19,6 @@ function obtenerDatos(){
         })
         .catch(error => console.error("No me puedo conectar"));
 }
-
 // Llenar los cards con los datos
 function llenarCards(){
     const cards = document.querySelectorAll('.producto');
@@ -41,7 +39,6 @@ function llenarCards(){
         
     });
 }
-
 // Leer info del plato
 function leerplatos(card) {
     const cardContainer = card.closest('.producto'); // se pone en el contenedor principal
@@ -56,11 +53,8 @@ function leerplatos(card) {
         id: parseInt(cardContainer.querySelector('button')?.dataset.id) || 0,
         cantidad: 1
     };
-
-    console.log(infoPlato);
     return infoPlato;
 }
-
 // Agregar plato al carrito y manejar contador
 function agregarPlato(e){
     e.preventDefault();
@@ -120,7 +114,6 @@ function agregarPlato(e){
         cuentaTotal();
     }
 }
-
 // Eliminar plato desde carrito
 function eliminarPlato(e){
     e.preventDefault();
@@ -145,30 +138,30 @@ function eliminarPlato(e){
         }
     }
 }
-
 // Calcular total del carrito
 function cuentaTotal(){
     const carritoTotalDiv = document.querySelector('.carrito-total');
+    const carritoMensaje = document.querySelector('.carrito-mensaje');
     const totalElemento = document.querySelector('#total-carrito');
     if (!carritoTotalDiv || !totalElemento) return;
 
     if (articulosCarrito.length === 0) {
         carritoTotalDiv.style.display = 'none';
+        if (carritoMensaje) carritoMensaje.style.display = 'none';
         totalElemento.textContent = '0.00';
     } else {
         const totalCarrito = articulosCarrito.reduce((acum, plato) => acum + (plato.precio * plato.cantidad), 0);
         totalElemento.textContent = totalCarrito.toFixed(2);
         carritoTotalDiv.style.display = 'flex';
+        carritoMensaje.style.display = 'block';
     }
 }
-
 // Actualizar contador del header
 function actualizarContadorCarrito() {
     const totalPlatos = articulosCarrito.reduce((acumulador, plato) => acumulador + plato.cantidad, 0);
     const contador = document.querySelector('#cantidad-platos');
     if (contador) contador.textContent = totalPlatos;
 }
-
 // Mostrar el carrito en HTML
 function carritoHTML(){
     carrito_contenedor.innerHTML = '';
@@ -206,13 +199,11 @@ function carritoHTML(){
         });
     }
 }
-
 // Escuchar eventos
 function cargarEventListeners(){
     listaplatos.addEventListener('click', agregarPlato);
     carrito.addEventListener('click', eliminarPlato);
 }
-
 // Iniciar app y listeners
 document.addEventListener('DOMContentLoaded', iniciarApp);
 cargarEventListeners();
