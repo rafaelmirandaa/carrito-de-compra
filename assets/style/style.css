@@ -82,19 +82,12 @@ img{
     cursor: pointer;   /* agranda ligeramente la imagen */
   filter: brightness(0.9); /* oscurece un poco */
 }
-.button-add.active {
-  background-color: orange;
-  color: white;
-  border: none;
-}
 
 .button-add span {
   cursor: pointer;
   padding: 0 5px;
   font-weight: bold;
 }
-
-
 
 .card-contenido picture {
   border-radius: 1rem;
@@ -144,6 +137,34 @@ img{
     color:#271208 ;
     white-space: nowrap;
 }
+
+.button-add.activo {
+    background-color: #C83B0E; /* fondo naranja del botón */
+    color:#ffffff;             /* texto blanco */
+    border: 1px solid #C83B0E;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;             /* espacio entre - cantidad + */
+    transition: all 0.3s ease;
+}
+
+.button-add .btn-minus,
+.button-add .btn-plus {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4.5rem;            /* tamaño del círculo */
+    height: 2.5rem;
+    border-radius: 50%;        /* círculo perfecto */
+    color: #ffffffff;            /* texto blanco */
+    font-weight: bold;
+    font-size: 1.8rem;
+    cursor: pointer;
+    user-select: none;         /* evita selección de texto al hacer clic */
+    transition: all 0.2s ease;
+}
+
 .info-card{
     width:100%;
     height: 5rem;
@@ -229,7 +250,6 @@ img{
     border-radius: 50%;   /* esto hace el círculo */
     transition: background 0.3s ease;
 }
-
 .borrar-plato img {
   width: 14px; 
   height: 14px;
@@ -359,6 +379,18 @@ img{
         width: 2.5rem;
         height: 2.5rem;
     }
+    .button-add.activo {
+    background-color: #C83B0E; /* fondo naranja del botón */
+    color:#ffffff;             /* texto blanco */
+    border: 1px solid #C83B0E;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;             /* espacio entre - cantidad + */
+    transition: all 0.3s ease;
+    }   
+
+
     .button-add a {
         text-decoration: none;
         font-family: 'fuente', sans-serif;

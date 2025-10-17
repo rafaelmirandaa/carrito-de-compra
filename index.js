@@ -38,16 +38,20 @@ function llenarCards(){
         card.querySelector('.category').textContent = producto.category;
         card.querySelector('.name').textContent = producto.name;
         card.querySelector('.price').textContent = `$${producto.price}`;
+        
     });
 }
 
 // Leer info del plato
 function leerplatos(card){
+    const tituloElem = card.querySelector('.name');
+    const precioElem = card.closest('.producto')?.querySelector('.price');
+
     const infoPlato = {
         imagen : card.querySelector('img')?.src || '',
-        titulo : card.querySelector('.name')?.textContent || 'Plato',
-        precio : parseFloat(card.closest('.producto').querySelector('.price').textContent.replace('$','')) || 0,
-        id : parseInt(card.querySelector('button').dataset.id),
+        titulo : tituloElem ? tituloElem.textContent : '',
+        precio : precioElem ? parseFloat(precioElem.textContent.replace('$','')) : 0,
+        id : parseInt(card.querySelector('button')?.dataset.id) || 0,
         cantidad : 1
     };
     return infoPlato;
@@ -70,12 +74,13 @@ function agregarPlato(e){
             item = articulosCarrito.find(p => p.id === id);
         }
 
-        // Cambiar el botón a contador
+       // Cambiar el botón a contador y aplicar fondo naranja
         boton.classList.remove('agregar-carrito');
+        boton.classList.add('activo'); // fondo naranja
         boton.innerHTML = `
-            <button class="btn-minus">-</button>
+            <spam class="btn-minus">-</spam>
             <span class="quantity">${item.cantidad}</span>
-            <button class="btn-plus">+</button>
+            <span class="btn-plus">+</span>
         `;
         const quantitySpan = boton.querySelector('.quantity');
 
@@ -92,8 +97,10 @@ function agregarPlato(e){
         boton.querySelector('.btn-minus').onclick = () => {
             item.cantidad--;
             if(item.cantidad <= 0){
+                // Volver a estado inicial
                 articulosCarrito = articulosCarrito.filter(p => p.id !== id);
                 boton.innerHTML = `<img src="/assets/images/icon-add-to-cart.svg" alt=""> Add to Cart`;
+                boton.classList.remove('activo'); // quitar fondo naranja
                 boton.classList.add('agregar-carrito');
             } else {
                 quantitySpan.textContent = item.cantidad;
