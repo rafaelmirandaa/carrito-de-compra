@@ -43,17 +43,21 @@ function llenarCards(){
 }
 
 // Leer info del plato
-function leerplatos(card){
-    const tituloElem = card.querySelector('.name');
-    const precioElem = card.closest('.producto')?.querySelector('.price');
+function leerplatos(card) {
+    const cardContainer = card.closest('.producto'); // se pone en el contenedor principal
+
+    const tituloElem = cardContainer.querySelector('.name');
+    const precioElem = cardContainer.querySelector('.price');
 
     const infoPlato = {
-        imagen : card.querySelector('img')?.src || '',
-        titulo : tituloElem ? tituloElem.textContent : '',
-        precio : precioElem ? parseFloat(precioElem.textContent.replace('$','')) : 0,
-        id : parseInt(card.querySelector('button')?.dataset.id) || 0,
-        cantidad : 1
+        imagen: cardContainer.querySelector('img')?.src || '',
+        titulo: tituloElem ? tituloElem.textContent.trim() : '',
+        precio: precioElem ? parseFloat(precioElem.textContent.replace('$','')) : 0,
+        id: parseInt(cardContainer.querySelector('button')?.dataset.id) || 0,
+        cantidad: 1
     };
+
+    console.log(infoPlato);
     return infoPlato;
 }
 
