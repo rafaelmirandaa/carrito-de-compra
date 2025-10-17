@@ -26,16 +26,16 @@ function llenarCards(){
         const producto = productos[index];
         if(!producto) return;
 
-        // Imágenes
+        // Imágenes que traigo del JSON
         card.querySelector('.img-desktop').srcset = producto.image.desktop;
         card.querySelector('.img-tablet').srcset = producto.image.tablet;
         card.querySelector('.img-mobile').src = producto.image.mobile;
         card.querySelector('.img-mobile').alt = producto.name;
 
-        // Textos
+        //Todo el texto
         card.querySelector('.category').textContent = producto.category;
         card.querySelector('.name').textContent = producto.name;
-        card.querySelector('.price').textContent = `$${producto.price}`;
+        card.querySelector('.price').textContent = `$${producto.price.toFixed(2)}`;
         
     });
 }
@@ -61,18 +61,20 @@ function agregarPlato(e){
     if(e.target.classList.contains('agregar-carrito')){
         const card = e.target.closest('.card-contenido');
         const boton = e.target;
+        const border = card.querySelector('img');
         const id = parseInt(boton.dataset.id);
 
         // Leer info del plato
         const platoSeleccionado = leerplatos(card);
-        let item = articulosCarrito.find(p => p.id === id);
+        let item = articulosCarrito.find(plato => plato.id === id);
 
         if(!item){
             articulosCarrito.push({...platoSeleccionado, cantidad: 1});
-            item = articulosCarrito.find(p => p.id === id);
+            item = articulosCarrito.find(plato => plato.id === id);
         }
-
+        
        // Cambiar el botón a contador y aplicar fondo naranja
+        border.style.border = "4px solid #CF370D";
         boton.classList.remove('agregar-carrito');
         boton.classList.add('activo'); // fondo naranja
         boton.innerHTML = `
@@ -96,7 +98,8 @@ function agregarPlato(e){
             item.cantidad--;
             if(item.cantidad <= 0){
                 // Volver a estado inicial
-                articulosCarrito = articulosCarrito.filter(p => p.id !== id);
+                border.style.border = "none";
+                articulosCarrito = articulosCarrito.filter(plato => plato.id !== id);
                 boton.innerHTML = `<img src="/assets/images/icon-add-to-cart.svg" alt=""> Add to Cart`;
                 boton.classList.remove('activo'); // quitar fondo naranja
                 boton.classList.add('agregar-carrito');

@@ -61,20 +61,18 @@ img{
     border-radius: 10px;
     transition: border-color 0.2s ease-in-out;
 }
-.card picture{
-    width: 100%;
-}
+
 .card picture img {
-  width: 100%;
+  width: 50%;
   border-radius: 10px;
   transition: transform 0.3s ease, filter 0.3s ease;
 }
 
-.card picture img:active {
+/*.card picture img:active {
     border: 3px solid #CF370D;
-    cursor: pointer;   /* agranda ligeramente la imagen */
-  filter: brightness(0.9); /* oscurece un poco */
-}
+    cursor: pointer;   /* agranda ligeramente la imagen 
+  filter: brightness(0.9); /* oscurece un poco 
+}*/
 
 .button-add span {
   cursor: pointer;
@@ -84,8 +82,7 @@ img{
 
 .card-contenido picture {
   border-radius: 1rem;
-  overflow: hidden;
-  display: block;
+
 }  
 .card-contenido picture img{
   width: 100%;
