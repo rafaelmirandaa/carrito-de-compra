@@ -283,17 +283,7 @@ img{
     font-family: 'fuente2',;
     font-size: 2.5rem;
 }
-.carrito-mensaje p{
-    text-align: center;
-    color: #88635C;
-    margin-bottom: 1rem;
-}
-.carrito-mensaje{
-    display: none;
-}
-.carrito-mensaje span{
-    font-weight: bold;
-}
+
 
 
 .attribution {
