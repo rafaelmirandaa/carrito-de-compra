@@ -9,7 +9,6 @@ const listaplatos = document.querySelector('#lista-platos');
 function iniciarApp(){
     carritoHTML();
     obtenerDatos();
-    inicializarModal();
 }
 // Obtener datos de JSON
 function obtenerDatos(){
@@ -203,63 +202,14 @@ function carritoHTML(){
         });
     }
 }
-
-function inicializarModal() {
-    const modal = document.getElementById('carrito-modal');
-    const modalContenido = document.getElementById('modal-contenido');
-    const botonConfirmar = document.getElementById('confirmar-orden');
-    const cerrarModal = document.querySelector('.modal-close');
-    const botonNuevoPedido = document.getElementById('nuevo-pedido');
-
-    botonConfirmar.addEventListener('click', (e) => {
-        e.preventDefault();
-        modalContenido.innerHTML = '';
-
-        if (articulosCarrito.length === 0) {
-            modalContenido.innerHTML = `<p>Tu carrito está vacío</p>`;
-        } else {
-            articulosCarrito.forEach(plato => {
-                const div = document.createElement('DIV');
-                div.classList.add('item-modal');
-                div.innerHTML = `
-                    <p><strong>${plato.titulo}</strong></p>
-                    <p>${plato.cantidad} x $${plato.precio.toFixed(2)} = $${(plato.cantidad * plato.precio).toFixed(2)}</p>
-                `;
-                modalContenido.appendChild(div);
-            });
-
-            const total = articulosCarrito.reduce((acum, plato) => acum + plato.precio * plato.cantidad, 0);
-            const divTotal = document.createElement('DIV');
-            divTotal.innerHTML = `<p><strong>Total: $${total.toFixed(2)}</strong></p>`;
-            modalContenido.appendChild(divTotal);
-        }
-
-        modal.style.display = 'block';
-    });
-
-    // Cerrar modal con la X
-    cerrarModal.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
-
-    // Cerrar modal al hacer click fuera del contenido
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) modal.style.display = 'none';
-    });
-
-    // Reiniciar carrito al hacer click en "Start New Order"
-    botonNuevoPedido.addEventListener('click', () => {
-        articulosCarrito = [];
-        carritoHTML();
-        cuentaTotal();
-        modal.style.display = 'none';
-    });
-}
 // Escuchar eventos
 function cargarEventListeners(){
     listaplatos.addEventListener('click', agregarPlato);
     carrito.addEventListener('click', eliminarPlato);
 }
 // Iniciar app y listeners
-document.addEventListener('DOMContentLoaded', iniciarApp);
-cargarEventListeners();
+document.addEventListener('DOMContentLoaded', ()=>{
+    iniciarApp() 
+    cargarEventListeners();
+});
+
