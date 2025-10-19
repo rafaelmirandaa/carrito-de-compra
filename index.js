@@ -119,27 +119,37 @@ function agregarPlato(e){
     }
 }
 // Eliminar plato desde carrito
-function eliminarPlato(e){
-    e.preventDefault();
-    const boton = e.target.closest('.borrar-plato');
-    if(boton){
-        const platoid = parseInt(boton.dataset.id);
-        const plato = articulosCarrito.find(p => p.id === platoid);
-        if(plato){
-            plato.cantidad -= 1;
-            if(plato.cantidad <= 0){
-                articulosCarrito = articulosCarrito.filter(p => p.id !== platoid);
-                // Restaurar botón en card si existe
-                const cardBoton = document.querySelector(`.producto [data-id="${platoid}"]`);
-                if(cardBoton && !cardBoton.classList.contains('agregar-carrito')){
-                    cardBoton.innerHTML = `<img src="/assets/images/icon-add-to-cart.svg" alt=""> Add to Cart`;
-                    cardBoton.classList.add('agregar-carrito');
-                }
+function eliminarPlato(e) {
+    e.preventDefault(); // evita el salto de página
+    const boton = e.target.closest('.borrar-plato'); // selecciona el botón eliminar
+
+    if (boton) {
+        const platoid = parseInt(boton.dataset.id); // obtiene el ID del plato
+
+        // Elimina solo el plato con ese ID
+        articulosCarrito = articulosCarrito.filter(p => p.id !== platoid);
+
+        // Restaura el botón en la card original del producto
+        const cardBoton = document.querySelector(`.producto [data-id="${platoid}"]`);
+        
+        if (cardBoton) {
+            cardBoton.innerHTML = `<img src="/assets/images/icon-add-to-cart.svg" alt=""> Add to Cart`;
+            cardBoton.classList.add('agregar-carrito');
+
+            cardBoton.classList.remove('activo');
+            cardBoton.style.backgroundColor = ''; 
+            // Busca la imagen dentro de la card del producto
+            const card = cardBoton.closest('.producto');
+            const img = card ? card.querySelector('img') : null;
+            if (img) {
+                img.style.border = "none"; // 🔸 ahora sí se borra correctamente
             }
-            carritoHTML();
-            actualizarContadorCarrito();
-            cuentaTotal();
         }
+
+        // Actualiza la interfaz
+        carritoHTML();
+        actualizarContadorCarrito();
+        cuentaTotal();
     }
 }
 // Calcular total del carrito
