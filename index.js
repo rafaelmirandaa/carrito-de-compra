@@ -185,8 +185,6 @@ function carritoHTML(){
         carrito_vacio.innerHTML = `
             <div class="imagen-carrito">
                 <img src="/assets/images/illustration-empty-cart.svg" alt="Carrito Vacio">
-            </div>
-            <div class="carrito-mensaje">
                 <p>You added items will appear here</p>
             </div>
         `;
