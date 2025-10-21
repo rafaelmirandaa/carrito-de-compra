@@ -8,6 +8,7 @@ const listaplatos = document.querySelector('#lista-platos');
 // Iniciar app
 function iniciarApp(){
     carritoHTML();
+    modalHTML();
     obtenerDatos();
 }
 // Obtener datos de JSON
@@ -214,6 +215,17 @@ function carritoHTML(){
         });
     }
 }
+function modalHTML(e){
+    e.preventDefault();
+    const orden = e.target.closest('confirmar-orden');
+
+    console.log(orden);
+
+}
+
+
+
+
 // Escuchar eventos
 function cargarEventListeners(){
     listaplatos.addEventListener('click', agregarPlato);
