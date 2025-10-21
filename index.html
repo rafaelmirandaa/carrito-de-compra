@@ -221,13 +221,12 @@
         <img src="/assets/images/icon-carbon-neutral.svg" alt="">
         <p>This is a <span>carbon-neutral</span> delivery</p>
        </div>
-       <button class="confirmar-orden" style="display: none;">
+       <button id="confirmar-orden" class="confirmar-orden" style="display: none;">
             <p>Confirm Order</p>
        </button>
   </div>
-   <div class="modal" style="display: none;">
+   <div class="modal" style="display: block;">
     <div class="modal-contenido">
-        <span class="cerrar-modal">&times;</span>
         <div>
             <img src="/assets/images/icon-order-confirmed.svg" alt="">
         </div>
@@ -238,7 +237,9 @@
         <div id="carrito-modal">
             <div id="modal-contenido"></div>
         </div>
-        <button id="nuevo-pedido">Start New Order</button>
+        <button class="confirmar-orden nuevo-pedido">
+         <p>Start New Order</p>
+        </button>
     </div>
     </div>
 </div>
