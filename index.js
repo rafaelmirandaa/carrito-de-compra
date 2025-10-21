@@ -155,18 +155,22 @@ function eliminarPlato(e) {
 // Calcular total del carrito
 function cuentaTotal(){
     const carritoTotalDiv = document.querySelector('.carrito-total');
-    const carritoMensaje = document.querySelector('.carrito-mensaje');
+    const carritoMensaje = document.querySelector('.carrito-carbon');
     const totalElemento = document.querySelector('#total-carrito');
+    const ConfirmarOrden = document.querySelector('.confirmar-orden')
     if (!carritoTotalDiv || !totalElemento) return;
 
     if (articulosCarrito.length === 0) {
         carritoTotalDiv.style.display = 'none';
+        ConfirmarOrden.style.display = 'none';
         if (carritoMensaje) carritoMensaje.style.display = 'none';
         totalElemento.textContent = '0.00';
     } else {
         const totalCarrito = articulosCarrito.reduce((acum, plato) => acum + (plato.precio * plato.cantidad), 0);
         totalElemento.textContent = totalCarrito.toFixed(2);
         carritoTotalDiv.style.display = 'flex';
+        carritoMensaje.style.display = 'flex';
+        ConfirmarOrden.style.display = 'flex';
     }
 }
 // Actualizar contador del header

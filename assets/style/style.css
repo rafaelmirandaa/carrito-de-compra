@@ -252,16 +252,6 @@ img{
   align-items: center;     /* centra verticalmente */
 }
 
-.carrito-vacio .imagen-carrito {
-    
-}
-
-.imagen-carrito img {
-  width: 50%;
-  height: auto;
-  background-size: cover;
-    background-repeat: no-repeat; /* para mantener proporción */
-}
 #cantidad-platos{
     color: #CF370D;
     font-weight: bold;
@@ -296,6 +286,54 @@ img{
     display: none;
 }
 .carrito-mensaje span{
+    font-weight: bold;
+}
+.imagen-carrito {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100%; 
+    text-align: center;
+}
+.imagen-carrito img {
+    width: 200px; /* ajusta tamaño si deseas */
+    height: auto;
+    margin-bottom: 10px; /* separa un poco del texto */
+}
+.imagen-carrito p{
+    display: inline-block;
+    color: #88635C;
+    margin-bottom: 1rem;
+}
+.carrito-carbon{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    gap:10px ;
+    background-color: #FCF8F5;
+    margin-bottom: 2.5rem;
+}
+.carrito-carbon img{
+    margin-left: 4rem;
+}
+.carrito-carbon p span{
+    font-weight: bold;
+}
+.confirmar-orden {
+    background-color: #C83B0E;
+    color:#ffffff;             /* texto blanco */
+    border: 1px solid #C83B0E;
+    display: flex;
+    width: 95%;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;         
+    transition: all 0.3s ease;
+    border-radius: 28px; 
+    cursor: pointer;
+}
+.confirmar-orden p{
     font-weight: bold;
 }
 
@@ -390,6 +428,21 @@ img{
     gap: 0.5rem;             /* espacio entre - cantidad + */
     transition: all 0.3s ease;
     }   
+
+    .imagen-carrito {
+        display: flex;
+        flex-direction: column; 
+        justify-content: center; 
+        align-items: center; 
+        height: 100%; 
+        text-align: center;
+    }
+    .imagen-carrito img {
+        width: 200px; /* ajusta tamaño si deseas */
+        height: auto;
+        margin-bottom: 10px; /* separa un poco del texto */
+    }
+
     .imagen-carrito p{
         display: inline-block;
         color: #88635C;
