@@ -346,10 +346,11 @@ img{
 }
 .modal{
     width: 50rem;
-    height: 50rem;
+    height: 55rem;
     border-radius: 1rem ;
-    border: 1px solid #000000;
     padding: 10px 20px;
+    position: fixed;
+    background-color:#ffffff;
 }
 
 .titulo-modal{
@@ -360,12 +361,55 @@ img{
     font-family: 'fuente',sans-serif;
 }
 
-
 .titulo-modal p{
     color: #88635C;
     font-weight: bold;
     margin-bottom: 1rem;
 }
+.plato-modal{
+    padding: 20px 20px;
+}
+.modal-item{
+     display: flex;
+    align-items: center;
+    align-content: center;
+    gap: 1rem;
+}
+
+
+
+.modal-carrito{
+    width: 95%;
+    height: 270px;
+    background-color: #C83B0E;
+    margin-bottom: 2rem;
+}
+
+.nuevo-pedido{
+    background-color: #C83B0E; /* fondo naranja del botón */
+    color:#ffffff;             /* texto blanco */
+    border: 1px solid #C83B0E;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;             /* espacio entre - cantidad + */
+    transition: all 0.3s ease;
+    width: 90%;
+    border-radius: 28px;  
+}
+
+.nuevo-pedido{
+    font-size: 1.5rem;
+
+}
+
+
+
+
+
+
+
+
 
 /*Tablet*/
 @media(min-width: 768px){

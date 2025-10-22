@@ -3,12 +3,15 @@ let articulosCarrito = [];
 const carrito = document.querySelector('#carrito');
 const carrito_contenedor = document.querySelector('#carrito-contenedor');
 const listaplatos = document.querySelector('#lista-platos');
+const confirmarOrden = document.querySelector('#confirmar-orden');
+const modal = document.querySelector('.modal');
+const modalContenido = document.querySelector('#modal-contenido');
+const nuevoPedido = document.querySelector('.nuevo-pedido');
 
 
 // Iniciar app
 function iniciarApp(){
     carritoHTML();
-    modalHTML();
     obtenerDatos();
 }
 // Obtener datos de JSON
@@ -217,19 +220,49 @@ function carritoHTML(){
 }
 function modalHTML(e){
     e.preventDefault();
-    const orden = e.target.closest('confirmar-orden');
+            
+    modalContenido.innerHTML = '';
 
-    console.log(orden);
+    articulosCarrito.forEach(plato => {
+                const div = document.createElement('div');
+                div.classList.add('plato-modal');
 
+                div.innerHTML = `
+                    <div class="modal-item">
+                        <img src="${plato.imagen}" alt="${plato.titulo}" width="80" height="80">
+                        <div class="detalle">
+                            <h3>${plato.titulo}</h3>
+                            <p>Cantidad: ${plato.cantidad}</p>
+                            <p>Precio: $${plato.precio}</p>
+                            <p><strong>Total: $${plato.precio * plato.cantidad}</strong></p>
+                        </div>
+                    </div>
+                    <hr>
+                `;
+                modalContenido.appendChild(div);
+    });
+
+            // Muestra el modal
+    modal.style.display = 'block';
 }
 
 
+nuevoPedido.addEventListener('click', () => {
+            modal.style.display = 'none';
+            // Se limpia el carrito
+            articulosCarrito = [];
+            actualizarCarritoHTML(); // esta función ya la tienes
+});
+
+// Listener del botón "Confirmar orden"
+confirmarOrden.addEventListener('click', modalHTML);
 
 
 // Escuchar eventos
 function cargarEventListeners(){
     listaplatos.addEventListener('click', agregarPlato);
     carrito.addEventListener('click', eliminarPlato);
+    confirmarOrden.addEventListener('click',modalHTML);
 }
 // Iniciar app y listeners
 document.addEventListener('DOMContentLoaded', ()=>{
