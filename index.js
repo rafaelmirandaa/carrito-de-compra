@@ -97,13 +97,12 @@ function agregarPlato(e){
             actualizarContadorCarrito();
             cuentaTotal();
         };
-
         // Botón -
         boton.querySelector('.btn-minus').onclick = () => {
             item.cantidad--;
-            if(item.cantidad <= 0){
-                // Volver a estado inicial
+            if(articulosCarrito.length === 0){
                 border.style.border = "none";
+                boton.classList.remove('.activo');
                 articulosCarrito = articulosCarrito.filter(plato => plato.id !== id);
                 boton.innerHTML = `<img src="/assets/images/icon-add-to-cart.svg" alt=""> Add to Cart`;
                 boton.classList.remove('activo'); // quitar fondo naranja
@@ -229,14 +228,18 @@ function modalHTML(e){
 
                 div.innerHTML = `
                     <div class="modal-item">
-                        <img src="${plato.imagen}" alt="${plato.titulo}" width="80" height="80">
-                        <div class="detalle">
-                            <h3>${plato.titulo}</h3>
-                            <p>Cantidad: ${plato.cantidad}</p>
-                            <p>Precio: $${plato.precio}</p>
-                            <p><strong>Total: $${plato.precio * plato.cantidad}</strong></p>
+                        <img src="${plato.imagen}" alt="${plato.titulo}"> 
+                        <div class="texto">
+                            <div class ="titulo-detalle">
+                                <h3>${plato.titulo}</h3>  
+                            </div>
+                             <div class="detalle">
+                                <p>${plato.cantidad}x</p>
+                                <p>@$${plato.precio}</p>
+                                <p><strong>$${plato.precio * plato.cantidad}</strong></p>
+                            </div>
                         </div>
-                    </div>
+                    </div>        
                     <hr>
                 `;
                 modalContenido.appendChild(div);
@@ -245,13 +248,14 @@ function modalHTML(e){
             // Muestra el modal
     modal.style.display = 'block';
 }
-
-
 nuevoPedido.addEventListener('click', () => {
             modal.style.display = 'none';
             // Se limpia el carrito
             articulosCarrito = [];
-            actualizarCarritoHTML(); // esta función ya la tienes
+            carritoHTML();
+            actualizarContadorCarrito();
+            cuentaTotal();
+            // esta función ya la tienes
 });
 
 // Listener del botón "Confirmar orden"
