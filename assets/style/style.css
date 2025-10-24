@@ -351,7 +351,36 @@ img{
     padding: 10px 20px;
     position: fixed;
     background-color:#ffffff;
+    z-index: 9999;
+    display: none;
+    top: 0;
+    left: 0;
 }
+
+.modal #modal-contenido {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 15px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  animation: aparecer 0.3s ease;
+}
+
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
 
 .titulo-modal{
     line-height: 2rem;
@@ -427,15 +456,6 @@ img{
     font-size: 1.5rem;
 
 }
-
-
-
-
-
-
-
-
-
 /*Tablet*/
 @media(min-width: 768px){
     .header{
@@ -547,6 +567,48 @@ img{
         color:#271208 ;
         white-space: nowrap;
     }
+
+    .modal{
+    width: 50rem;
+    height: 55rem;
+    border-radius: 1rem ;
+    padding: 10px 20px;
+    position: fixed;
+    background-color:#ffffff;
+    z-index: 9999;
+    display: none;
+    top: 0;
+    left: 0;
+    }
+
+    .modal #modal-contenido {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 15px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    animation: aparecer 0.3s ease;
+    }
+
+    @keyframes aparecer {
+        from {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        }
+
+        /* Desactivar scroll cuando el modal está activo */
+        body.modal-abierto {
+        overflow: hidden;
+    }
+
+
 
 
 }

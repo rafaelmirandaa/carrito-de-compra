@@ -102,7 +102,7 @@ function agregarPlato(e){
             item.cantidad--;
             if(articulosCarrito.length === 0){
                 border.style.border = "none";
-                boton.classList.remove('.activo');
+                boton.classList.remove('activo');
                 articulosCarrito = articulosCarrito.filter(plato => plato.id !== id);
                 boton.innerHTML = `<img src="/assets/images/icon-add-to-cart.svg" alt=""> Add to Cart`;
                 boton.classList.remove('activo'); // quitar fondo naranja
@@ -255,11 +255,58 @@ nuevoPedido.addEventListener('click', () => {
             carritoHTML();
             actualizarContadorCarrito();
             cuentaTotal();
-            // esta función ya la tienes
+            
+            const botones = document.querySelectorAll('.producto button');
+            botones.forEach(boton => {
+            boton.innerHTML = `<img src="/assets/images/icon-add-to-cart.svg" alt=""> Add to Cart`;
+            boton.classList.remove('activo');
+            boton.classList.add('agregar-carrito');
+    });
+
+    // 🔁 Quitar borde naranja de todas las imágenes
+    const imagenes = document.querySelectorAll('.producto img');
+    imagenes.forEach(img => img.style.border = 'none');
+
 });
 
 // Listener del botón "Confirmar orden"
 confirmarOrden.addEventListener('click', modalHTML);
+
+
+function modalHTML(e){
+    e.preventDefault();
+            
+    modalContenido.innerHTML = '';
+
+    articulosCarrito.forEach(plato => {
+        const div = document.createElement('div');
+        div.classList.add('plato-modal');
+        div.innerHTML = `
+            <div class="modal-item">
+                <img src="${plato.imagen}" alt="${plato.titulo}"> 
+                <div class="texto">
+                    <div class ="titulo-detalle">
+                        <h3>${plato.titulo}</h3>  
+                    </div>
+                    <div class="detalle">
+                        <p>${plato.cantidad}x</p>
+                        <p>@$${plato.precio}</p>
+                        <p><strong>$${plato.precio * plato.cantidad}</strong></p>
+                    </div>
+                </div>
+            </div>        
+            <hr>
+        `;
+        modalContenido.appendChild(div);
+    });
+
+    
+    modal.style.display = 'flex';
+
+    
+    document.body.classList.add('modal-abierto');
+}
+
 
 
 // Escuchar eventos
